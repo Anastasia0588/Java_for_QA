@@ -4,13 +4,10 @@ public class MyFirstProgram {
 public static void main (String[] args){
     hello("world");
 
-    Square s = new Square();
-    s.l = 5;
+    Square s = new Square(5);
     System.out.println("Площадь квадрата со стороной " + s.l + " = " + area(s));
 
-    Rectangle r = new Rectangle();
-    r.a = 2;
-    r.b = 3;
+    Rectangle r = new Rectangle(2, 3);
     System.out.println("Площадь прямоугольника со сторонами а = " + r.a + " и b = " + r.b + " = " + area(r));
 }
 
