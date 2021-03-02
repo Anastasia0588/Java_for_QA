@@ -1,4 +1,4 @@
-package ru.stqa.pft.sandbox;
+/*package ru.stqa.pft.sandbox;
 
 public class MyFirstProgram {
 public static void main (String[] args){
@@ -9,10 +9,11 @@ public static void main (String[] args){
 
     Rectangle r = new Rectangle(4, 3);
     System.out.println("Площадь прямоугольника со сторонами а = " + r.a + " и b = " + r.b + " = " + r.area());
+
 }
 
 public static void hello(String somebody){
        System.out.println("Hello, " + somebody + "!");
 }
 
-}
+*/
