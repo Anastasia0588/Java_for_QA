@@ -2,10 +2,10 @@ apply plugin: 'java'
 apply plugin: 'application'
 mainClassName = "ru.stqa.pft.sandbox.MySecondProgram"
 
-repositories(
-        mavenCentral()
-)
+repositories {
+    mavenCentral()
+}
 
-dependencies(
-        implementation 'org.testng:testng:7.4.0'
-)
+dependencies {
+    implementation 'org.testng:testng:7.4.0'
+}
