@@ -2,14 +2,14 @@ package ru.stqa.pft.addressbook;
 
 import java.util.concurrent.TimeUnit;
 import org.testng.annotations.*;
+import static org.testng.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class GroupCreationTests {
   private WebDriver wd;
 
-
-  @BeforeMethod(alwaysRun = true)
+  @BeforeClass(alwaysRun = true)
   public void setUp() throws Exception {
     wd = new FirefoxDriver();
     wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -39,10 +39,9 @@ public class GroupCreationTests {
     wd.findElement(By.linkText("Logout")).click();
   }
 
-  @AfterMethod(alwaysRun = true)
+  @AfterClass(alwaysRun = true)
   public void tearDown() throws Exception {
     wd.quit();
-     }
   }
 
   private boolean isElementPresent(By by) {
@@ -62,4 +61,6 @@ public class GroupCreationTests {
       return false;
     }
   }
+
+
 }
