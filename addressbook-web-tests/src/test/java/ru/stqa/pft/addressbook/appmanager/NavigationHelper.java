@@ -20,4 +20,8 @@ public class NavigationHelper extends HelperBase{
     public void goToContactCreation() {
       click(By.linkText("add new"));
     }
+
+    public void acceptAlert(){
+        wd.switchTo().alert().accept();
+    }
 }

@@ -14,6 +14,8 @@ public class ContactHelper extends HelperBase{
       click(By.xpath("(//input[@name='submit'])[2]"));
     }
 
+    public void selectContact(){ click(By.name("selected[]"));}
+
     public void fillContactData(ContactData contactData) {
         type(By.name("firstname"), contactData.getName());
         type(By.name("lastname"), contactData.getLastName());
@@ -21,6 +23,10 @@ public class ContactHelper extends HelperBase{
         type(By.name("address"), contactData.getCity());
         type(By.name("mobile"), contactData.getPhoneNumber());
         type(By.name("email"), contactData.getEmail());
+    }
+
+    public void deleteContact(){
+        click(By.xpath("//input[@value='Delete']"));
     }
 
 }
