@@ -25,8 +25,13 @@ public class ContactHelper extends HelperBase{
         type(By.name("mobile"), contactData.getPhoneNumber());
         type(By.name("email"), contactData.getEmail());
 
+<<<<<<< Updated upstream
         if (isElementPresent(By.name("new group"))) {
             new Select(wd.findElement(By.name("new group"))).selectByVisibleText(ContactData.getGroup());
+=======
+        if (isElementPresent(By.name("new group"))){
+            new Select(wd.findElement(By.name("new group"))).selectByVisibleText(contactData.getGroup());
+>>>>>>> Stashed changes
         }
     }
 
