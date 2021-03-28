@@ -34,6 +34,6 @@ public class NavigationHelper extends HelperBase{
     }
 
     public void goToEditContact() {
-        click(By.xpath("(//img[@alt='Edit'])[2]"));
+        click(By.xpath("//img[@alt='Edit']"));
     }
 }
