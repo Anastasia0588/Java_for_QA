@@ -35,6 +35,7 @@ public class HelperBase {
         }
     }
 
+    // имеющийся метод isElementPresent
     public boolean isElementPresent(By by) {
         try {
             wd.findElement(by);
@@ -43,5 +44,15 @@ public class HelperBase {
             return false;
         }
     }
+    //созданный в лекции метод isElementPresent
+    /* private boolean isElementPresentMy(By locator) {
+        try {
+            wd.findElement(locator);
+            return true;
+        } catch (NoSuchElementException ex){
+            return false;
+        }
+    }*/
+
 
 }
