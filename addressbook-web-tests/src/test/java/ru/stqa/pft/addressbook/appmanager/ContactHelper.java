@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 public class ContactHelper extends HelperBase{
@@ -17,7 +18,7 @@ public class ContactHelper extends HelperBase{
 
     public void selectContact(){ click(By.name("selected[]"));}
 
-    public void fillContactData(ContactData contactData) {
+    public void fillContactData(ContactData contactData, boolean creation) {
         type(By.name("firstname"), contactData.getName());
         type(By.name("lastname"), contactData.getLastName());
         type(By.name("company"), contactData.getCompany());
@@ -25,21 +26,13 @@ public class ContactHelper extends HelperBase{
         type(By.name("mobile"), contactData.getPhoneNumber());
         type(By.name("email"), contactData.getEmail());
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        if (isElementPresent(By.name("new group"))) {
-            new Select(wd.findElement(By.name("new group"))).selectByVisibleText(ContactData.getGroup());
-=======
-        if (isElementPresent(By.name("new group"))){
-            new Select(wd.findElement(By.name("new group"))).selectByVisibleText(contactData.getGroup());
->>>>>>> Stashed changes
-=======
-        if (isElementPresent(By.name("new group"))){
-            new Select(wd.findElement(By.name("new group"))).selectByVisibleText(contactData.getGroup());
->>>>>>> Stashed changes
-        }
-    }
+        if (creation){
+            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+            } else {
+            Assert.assertFalse(isElementPresentMy(By.name("new_group")));
+            }
 
+    }
 
     public void deleteContact(){
         click(By.xpath("//input[@value='Delete']"));

@@ -1,14 +1,6 @@
 package ru.stqa.pft.addressbook.model;
 
 public class ContactData {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-    private String group;
->>>>>>> Stashed changes
-=======
-    private String group;
->>>>>>> Stashed changes
     private final String name;
     private final String lastName;
     private final String company;
