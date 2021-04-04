@@ -20,23 +20,21 @@ public class GroupCreationTests extends TestBase{
     Assert.assertEquals(after.size(), before.size() + 1);
     app.getNavigationHelper().goToHomePage();
 
+    /* поиск максимального Id  с помощью цикла
     int max = 0;
     for (GroupData g : after){
       if (g.getId() > max){
         max = g.getId();
       }
     }
+    */
 
 
-    Comparator<? super GroupData> byId = new Comparator<GroupData>() {
-      @Override
-      public int compare(GroupData o1, GroupData o2) {
-        return Integer.compare(o1.getId(), o2.getId());
-      }
-    };
-    int max1 = after.stream().max(byId).get().getId();
+    //лямба выражение. Слева названия параметров, справа тело функции
+    //Comparator<? super GroupData> byId = (o1, o2) -> Integer.compare(o1.getId(), o2.getId());
+    //int max1 = after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId();
 
-    group.setId(max1);
+    group.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
     before.add(group);
     Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
   }
