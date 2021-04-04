@@ -41,10 +41,12 @@ public class ContactCreationTests extends TestBase{
     };
     */
 
-    //использование лямба-выражения:
-    contact.setId(after.stream().max((с1, с2) -> Integer.compare(с1.getId(), с2.getId())).get().getId());
-    before.add(contact);
-    Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+    //сравнение остортированных списков:
+    after.remove(after.size() - 1);
+    Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
+    before.sort(byId);
+    after.sort(byId);
+    Assert.assertEquals(before, after);
 
   }
 }
