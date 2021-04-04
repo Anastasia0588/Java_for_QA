@@ -22,7 +22,6 @@ public class ContactData {
     }
 
 
-
     public ContactData(String name, String lastName, String company, String city, String phoneNumber, String email, String group) {
         this.id = Integer.MAX_VALUE;
         this.name = name;
