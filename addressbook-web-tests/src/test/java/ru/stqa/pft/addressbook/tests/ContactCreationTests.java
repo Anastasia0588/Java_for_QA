@@ -19,7 +19,7 @@ public class ContactCreationTests extends TestBase{
     app.goTo().homePage();
   }
 
-  @Test
+  @Test (enabled = false)
   public void testContactCreation() {
     Set<ContactData> before = app.contact().contactAll();
     app.goTo().creation();

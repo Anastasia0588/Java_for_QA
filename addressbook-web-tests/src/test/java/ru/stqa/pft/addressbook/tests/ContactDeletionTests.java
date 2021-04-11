@@ -6,7 +6,6 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.GroupData;
 
-import java.util.List;
 import java.util.Set;
 
 public class ContactDeletionTests extends TestBase{
@@ -31,7 +30,7 @@ public class ContactDeletionTests extends TestBase{
         }
     }
 
-    @Test
+    @Test (enabled = false)
     public void ContactDeletion() {
         Set<ContactData> before = app.contact().contactAll();
         ContactData deletedContact = before.iterator().next();
