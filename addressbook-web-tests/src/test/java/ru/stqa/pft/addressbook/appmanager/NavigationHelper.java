@@ -9,7 +9,7 @@ public class NavigationHelper extends HelperBase{
         super(wd);
     }
 
-    public void goToGroupPage() {
+    public void groupPage() {
         if (isElementPresentMy(By.tagName("h1"))
                 && wd.findElement(By.tagName("h1")).getText().equals("Groups")
                 && isElementPresentMy(By.name("new"))){
@@ -18,14 +18,14 @@ public class NavigationHelper extends HelperBase{
        click(By.linkText("groups"));
     }
 
-    public void goToHomePage() {
+    public void homePage() {
         if (isElementPresentMy(By.id("maintable"))){
             return;
         }
       click(By.linkText("home"));
     }
 
-    public void goToContactCreation() {
+    public void creation() {
       click(By.linkText("add new"));
     }
 
@@ -33,7 +33,7 @@ public class NavigationHelper extends HelperBase{
         wd.switchTo().alert().accept();
     }
 
-    public void goToEditContact(int index) {
+    public void editContact(int index) {
         wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
     }
 }
