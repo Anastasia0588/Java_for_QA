@@ -27,7 +27,7 @@ public class ContactModificationTests extends TestBase{
     }
 
 
-    @Test
+    @Test (enabled = false)
 
     public void ContactModification() {
         List<ContactData> before = app.contact().contactList();

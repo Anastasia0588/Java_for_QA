@@ -24,7 +24,7 @@ public class ContactDeletionTests extends TestBase{
         }
     }
 
-    @Test
+    @Test (enabled = false)
     public void ContactDeletion() {
         List<ContactData> before = app.contact().contactList();
         int index = before.size() - 1;
