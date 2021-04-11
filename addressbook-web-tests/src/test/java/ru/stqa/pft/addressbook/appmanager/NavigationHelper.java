@@ -29,11 +29,4 @@ public class NavigationHelper extends HelperBase{
       click(By.linkText("add new"));
     }
 
-    public void acceptAlert(){
-        wd.switchTo().alert().accept();
-    }
-
-    public void editContact(int index) {
-        wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
-    }
 }

@@ -8,7 +8,9 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase{
 
@@ -16,8 +18,16 @@ public class ContactHelper extends HelperBase{
         super(wd);
     }
 
-    public void selectContact(int index){
-        wd.findElements(By.name("selected[]")).get(index).click();
+    public void editContact(int index) {
+        wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
+    }
+
+    public void editContactById() {
+        wd.findElement(By.xpath("//img[@alt='Edit']")).click();
+    }
+
+    private void selectContactById(int id) {
+        wd.findElement(By.cssSelector("input[value='" + id + "']")).click();;
     }
 
     public void fillContactData(ContactData contactData, boolean creation) {
@@ -36,27 +46,39 @@ public class ContactHelper extends HelperBase{
 
     }
 
-    public void fillContact(ContactData contact, boolean creation) {
-        fillContactData(contact, creation);
-        if (creation) {
-            submit();
-        } else {updateContact();}
-    }
     public void submit() {
         click(By.xpath("(//input[@name='submit'])"));
     }
 
-    public void updateContact(){
-        click(By.xpath("//input[@name='update']"));
+    public void update(){
+        click(By.xpath("//input[@value='Update']"));
     }
 
     public void deleteContact(){
         click(By.xpath("//input[@value='Delete']"));
     }
 
+
+    public void acceptAlert(){
+        wd.switchTo().alert().accept();
+    }
+
     public void create(ContactData contact) {
         fillContactData(contact, true);
         submit();
+    }
+
+    public void delete(ContactData contact) {
+        selectContactById(contact.getId());
+        deleteContact();
+        acceptAlert();
+    }
+
+    public void modify(ContactData contact) {
+        selectContactById(contact.getId());
+        editContactById();
+        fillContactData(contact, false);
+        update();
     }
 
     public boolean isThereAContact() {
@@ -67,8 +89,8 @@ public class ContactHelper extends HelperBase{
         return wd.findElements(By.name("selected[]")).size();
     }
 
-    public List<ContactData> contactList() {
-        List<ContactData> contacts = new ArrayList<ContactData>();
+    public Set<ContactData> contactAll() {
+        Set<ContactData> contacts = new HashSet<ContactData>();
         List<WebElement> elements = wd.findElements(By.name("entry"));
         for (WebElement e : elements){
             String firstname = e.findElement(By.xpath(".//td[3]")).getText();

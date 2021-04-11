@@ -1,17 +1,27 @@
 package ru.stqa.pft.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.GroupData;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ContactCreationTests extends TestBase{
+  @BeforeMethod
+  public void ensurePreconditions() {
+    app.goTo().groupPage();
+    if (app.group().groupAll().size() == 0) {
+      app.group().create(new GroupData().withName("DeletedGroupName").withHeader("DeletedGroupHeader").withFooter("GroupForDeletionFooter"));
+    }
+    app.goTo().homePage();
+  }
 
-  @Test (enabled = false)
+  @Test
   public void testContactCreation() {
-    List<ContactData> before = app.contact().contactList();
+    Set<ContactData> before = app.contact().contactAll();
     app.goTo().creation();
     ContactData contact = new ContactData()
             .withName("Alice")
@@ -21,36 +31,14 @@ public class ContactCreationTests extends TestBase{
             .withPhoneNumber("79201111111")
             .withEmail("example@yandex.com")
             .withGroup("Test1");
-    app.contact().fillContact(contact, true);
+    app.contact().create(contact);
     app.goTo().homePage();
-    List<ContactData> after = app.contact().contactList();
+    Set<ContactData> after = app.contact().contactAll();
     Assert.assertEquals(before.size(), after.size() - 1);
 
-    /*
-    исопльзование цикла для поиска максимального id:
-    int max = 0;
-    for (ContactData c : after){
-      if (c.getId() > max){
-        max = c.getId();
-      }
-    }
-
-    использование компаратора:
-    Comparator<? super ContactData> byId = new Comparator<ContactData>() {
-      @Override
-      public int compare(ContactData o1, ContactData o2) {
-        return Integer.compare(o1.getId(), o2.getId());
-      }
-    };
-    */
-
-    //сравнение остортированных списков:
-
+    contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt());
     before.add(contact);
-    Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
-    before.sort(byId);
-    after.sort(byId);
-    Assert.assertEquals(before, after);
+    Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
 
   }
 }
