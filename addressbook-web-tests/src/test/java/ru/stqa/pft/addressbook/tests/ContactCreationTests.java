@@ -28,7 +28,7 @@ public class ContactCreationTests extends TestBase{
             .withLastName("Drozdovskaia")
             .withCompany("Intech")
             .withCity("NN")
-            .withPhoneNumber("79201111111")
+            .withMobilephone("79201111111")
             .withEmail("example@yandex.com")
             .withGroup("Test1");
     app.contact().create(contact);
