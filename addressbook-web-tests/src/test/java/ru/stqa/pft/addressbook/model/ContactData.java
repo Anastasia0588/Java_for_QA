@@ -8,6 +8,9 @@ public class ContactData {
     private String city;
     private String homephone;
     private String mobilephone;
+
+
+
     private String workphone;
     private String email;
     private String group;
@@ -103,6 +106,14 @@ public class ContactData {
 
     public String getMobilephone() {
         return mobilephone;
+    }
+
+    public String getHomephone() {
+        return homephone;
+    }
+
+    public String getWorkphone() {
+        return workphone;
     }
 
     public String getEmail() {

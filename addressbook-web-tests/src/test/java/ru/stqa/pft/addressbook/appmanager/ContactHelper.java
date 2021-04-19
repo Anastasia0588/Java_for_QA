@@ -29,7 +29,9 @@ public class ContactHelper extends HelperBase{
         type(By.name("lastname"), contactData.getLastName());
         type(By.name("company"), contactData.getCompany());
         type(By.name("address"), contactData.getCity());
+        type(By.name("home"), contactData.getHomephone());
         type(By.name("mobile"), contactData.getMobilephone());
+        type(By.name("work"), contactData.getWorkphone());
         type(By.name("email"), contactData.getEmail());
 
         if (creation){
@@ -93,10 +95,12 @@ public class ContactHelper extends HelperBase{
         contactCache = new Contacts();
         List<WebElement> elements = wd.findElements(By.name("entry"));
         for (WebElement e : elements){
-            String firstname = e.findElement(By.xpath(".//td[3]")).getText();
             String lastname = e.findElement(By.xpath(".//td[2]")).getText();
+            String firstname = e.findElement(By.xpath(".//td[3]")).getText();
+            String[] phones = e.findElement(By.xpath(".//td[6]")).getText().split("\n");
             int id = Integer.parseInt(e.findElement(By.tagName("input")).getAttribute(("id")));
-            ContactData contact = new ContactData().withId(id).withName(firstname).withLastName(lastname);
+            ContactData contact = new ContactData().withId(id).withName(firstname).withLastName(lastname).
+                    withHomephone(phones[0]).withMobilephone(phones[1]).withWorkphone(phones[2]);
             contactCache.add(contact);
         }
         return new Contacts(contactCache);

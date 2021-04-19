@@ -24,11 +24,13 @@ public class ContactCreationTests extends TestBase{
     Contacts before = app.contact().contactAll();
     app.goTo().creation();
     ContactData contact = new ContactData()
-            .withName("Alice")
-            .withLastName("Drozdovskaia")
+            .withName("CreateNewContact")
+            .withLastName("Ivanov")
             .withCompany("Intech")
-            .withCity("NN")
-            .withMobilephone("79201111111")
+            .withCity("Moscow")
+            .withHomephone("333")
+            .withMobilephone("111")
+            .withWorkphone("111")
             .withEmail("example@yandex.com")
             .withGroup("Test1");
     app.contact().create(contact);
