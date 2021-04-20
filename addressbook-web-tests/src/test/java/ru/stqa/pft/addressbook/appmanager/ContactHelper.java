@@ -97,10 +97,10 @@ public class ContactHelper extends HelperBase{
         for (WebElement e : elements){
             String lastname = e.findElement(By.xpath(".//td[2]")).getText();
             String firstname = e.findElement(By.xpath(".//td[3]")).getText();
-            String[] phones = e.findElement(By.xpath(".//td[6]")).getText().split("\n");
+            String allPhones = e.findElement(By.xpath(".//td[6]")).getText();
             int id = Integer.parseInt(e.findElement(By.tagName("input")).getAttribute(("id")));
             ContactData contact = new ContactData().withId(id).withName(firstname).withLastName(lastname).
-                    withHomephone(phones[0]).withMobilephone(phones[1]).withWorkphone(phones[2]);
+                    withAllPhones(allPhones);
             contactCache.add(contact);
         }
         return new Contacts(contactCache);
