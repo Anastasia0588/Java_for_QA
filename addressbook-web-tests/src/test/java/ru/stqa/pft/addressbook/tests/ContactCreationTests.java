@@ -27,7 +27,7 @@ public class ContactCreationTests extends TestBase{
             .withName("CreateNewContact")
             .withLastName("Ivanov")
             .withCompany("Intech")
-            .withCity("Moscow")
+            .withAddress("Moscow")
             .withHomephone("333")
             .withMobilephone("111")
             .withWorkphone("111")

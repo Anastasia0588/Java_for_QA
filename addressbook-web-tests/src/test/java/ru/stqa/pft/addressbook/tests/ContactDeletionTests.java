@@ -24,7 +24,7 @@ public class ContactDeletionTests extends TestBase{
             app.contact().create(new ContactData().withName("CreateNewContact")
                     .withLastName("Ivanov")
                     .withCompany("Intech")
-                    .withCity("Moscow")
+                    .withAddress("Moscow")
                     .withMobilephone("79201111111")
                     .withEmail("example@yandex.com")
                     .withGroup("Test1"));
