@@ -33,6 +33,7 @@ public class ContactCreationTests extends TestBase{
             .withWorkphone("111")
             .withEmail("example@yandex.com")
             .withGroup("Test1");
+
     app.contact().create(contact);
     app.goTo().homePage();
     assertThat(before.size(), equalTo(app.contact().count() - 1));
