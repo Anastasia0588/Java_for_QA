@@ -1,0 +1,29 @@
+[
+  {
+    "name": "gName 0",
+    "lastName": "gLastName 0",
+    "company": "gCompany 0",
+    "address": "gAdress 0",
+    "mobilephone": "+7(111)000 00 00",
+    "email": "0email@yandex.ru",
+    "group": "test0"
+  },
+  {
+    "name": "gName 1",
+    "lastName": "gLastName 1",
+    "company": "gCompany 1",
+    "address": "gAdress 1",
+    "mobilephone": "+7(111)000 00 01",
+    "email": "1email@yandex.ru",
+    "group": "test1"
+  },
+  {
+    "name": "gName 2",
+    "lastName": "gLastName 2",
+    "company": "gCompany 2",
+    "address": "gAdress 2",
+    "mobilephone": "+7(111)000 00 02",
+    "email": "2email@yandex.ru",
+    "group": "test2"
+  }
+]

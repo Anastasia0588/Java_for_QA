@@ -1,0 +1,29 @@
+<list>
+  <contact>
+    <name>gName 0</name>
+    <lastName>gLastName 0</lastName>
+    <company>gCompany 0</company>
+    <address>gAdress 0</address>
+    <mobilephone>+7(111)000 00 00</mobilephone>
+    <email>0email@yandex.ru</email>
+    <group>test0</group>
+  </contact>
+  <contact>
+    <name>gName 1</name>
+    <lastName>gLastName 1</lastName>
+    <company>gCompany 1</company>
+    <address>gAdress 1</address>
+    <mobilephone>+7(111)000 00 01</mobilephone>
+    <email>1email@yandex.ru</email>
+    <group>test1</group>
+  </contact>
+  <contact>
+    <name>gName 2</name>
+    <lastName>gLastName 2</lastName>
+    <company>gCompany 2</company>
+    <address>gAdress 2</address>
+    <mobilephone>+7(111)000 00 02</mobilephone>
+    <email>2email@yandex.ru</email>
+    <group>test2</group>
+  </contact>
+</list>
