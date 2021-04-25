@@ -12,6 +12,7 @@ dependencies {
     implementation 'com.thoughtworks.xstream:xstream:1.4.16'
     implementation 'dev.galasa:gson:2.8.5'
     implementation 'com.newrelic.logging:logback:2.2'
+    implementation 'mysql:mysql-connector-java:8.0.24'
 }
 
 task testGroups(type: Test) {
