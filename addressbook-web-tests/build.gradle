@@ -13,6 +13,7 @@ dependencies {
     implementation 'dev.galasa:gson:2.8.5'
     implementation 'com.newrelic.logging:logback:2.2'
     implementation 'mysql:mysql-connector-java:8.0.24'
+    implementation 'org.hibernate:hibernate-core:5.4.30.Final'
 }
 
 task testGroups(type: Test) {
