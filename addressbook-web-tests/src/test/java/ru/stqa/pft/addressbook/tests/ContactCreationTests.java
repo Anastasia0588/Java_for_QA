@@ -55,21 +55,21 @@ public class ContactCreationTests extends TestBase{
 
   @BeforeMethod
   public void ensurePreconditions() {
+    if (app.db().groups().size() == 0){
     app.goTo().groupPage();
-    if (app.group().groupAll().size() == 0) {
-      app.group().create(new GroupData().withName("DeletedGroupName").withHeader("DeletedGroupHeader").withFooter("GroupForDeletionFooter"));
+    app.group().create(new GroupData().withName("DeletedGroupName").withHeader("DeletedGroupHeader").withFooter("GroupForDeletionFooter"));
     }
     app.goTo().homePage();
   }
 
   @Test (dataProvider = "validContactsFromJson")
   public void testContactCreation(ContactData contact) {
-    Contacts before = app.contact().contactAll();
+    Contacts before = app.db().contacts();
     app.goTo().creation();
     app.contact().create(contact);
     app.goTo().homePage();
     assertThat(before.size(), equalTo(app.contact().count() - 1));
-    Contacts after = app.contact().contactAll();
+    Contacts after = app.db().contacts();
     assertThat(after, equalTo(
             before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
 

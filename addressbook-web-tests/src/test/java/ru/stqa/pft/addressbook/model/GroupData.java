@@ -15,6 +15,16 @@ import javax.persistence.Table;
 @Table(name = "group_list")
 
 public class GroupData {
+    @Override
+    public String toString() {
+        return "GroupData{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", header='" + header + '\'' +
+                ", footer='" + footer + '\'' +
+                '}';
+    }
+
     @XStreamOmitField
     @Id
     @Column(name = "group_id")
@@ -91,14 +101,6 @@ public class GroupData {
 
     public String getFooter() {
         return footer;
-    }
-
-    @Override
-    public String toString() {
-        return "GroupData{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
     }
 
 }
