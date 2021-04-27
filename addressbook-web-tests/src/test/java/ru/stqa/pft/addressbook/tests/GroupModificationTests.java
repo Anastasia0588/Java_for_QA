@@ -12,22 +12,22 @@ import static org.testng.Assert.assertEquals;
 public class GroupModificationTests extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
-        app.goTo().groupPage();
-        if (app.group().groupAll().size() == 0){
+        if (app.db().groups().size() == 0){
+            app.goTo().groupPage();
             app.group().create(new GroupData().withName("Test-1").withFooter("Test-3"));
         }
     }
 
     @Test
     public void TestGroupModification() {
-
-        Groups before = app.group().groupAll();
+        Groups before = app.db().groups();
         GroupData modifiedGroup = before.iterator().next();
         GroupData groupData = new GroupData().withId(modifiedGroup.getId())
                 .withName("Test1").withHeader("Test11").withFooter("Test22");
+        app.goTo().groupPage();
         app.group().modify(groupData);
         assertEquals(before.size(), app.group().count());
-        Groups after = app.group().groupAll();
+        Groups after = app.db().groups();
         app.goTo().homePage();
         assertThat(after, equalTo(before.without(modifiedGroup).withAdded(groupData)));
     }
