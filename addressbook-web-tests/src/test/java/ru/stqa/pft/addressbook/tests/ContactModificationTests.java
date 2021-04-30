@@ -29,7 +29,7 @@ public class ContactModificationTests extends TestBase{
                     .withMobilephone("79201111111")
                     .withEmail("example@yandex.com")
                     .withGroup("Test1"));
-                 }
+        }
         app.goTo().homePage();
     }
 
@@ -50,6 +50,7 @@ public class ContactModificationTests extends TestBase{
         Contacts after = app.db().contacts();
         assertThat(after,
                 equalTo(before.without(modifiedContact).withAdded(contact)));
+        verifyContactListInUI();
     }
 
 }
