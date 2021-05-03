@@ -17,6 +17,27 @@ public class ContactHelper extends HelperBase{
         super(wd);
     }
 
+    public void fillContactData(ContactData contactData, boolean creation) {
+        type(By.name("firstname"), contactData.getName());
+        type(By.name("lastname"), contactData.getLastName());
+        type(By.name("company"), contactData.getCompany());
+        type(By.name("address"), contactData.getAddress());
+        type(By.name("home"), contactData.getHomephone());
+        type(By.name("mobile"), contactData.getMobilephone());
+        type(By.name("work"), contactData.getWorkphone());
+        type(By.name("email"), contactData.getEmail());
+        attach(By.name("photo"), contactData.getPhoto());
+
+        if (creation) {
+            if (contactData.getGroups().size() > 0) {
+                Assert.assertTrue(contactData.getGroups().size() == 1);
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
+            }
+        } else {
+            Assert.assertFalse(isElementPresent(By.name("new_group")));
+        }
+    }
+    
     public void editContactById(int id) {
         wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
     }
@@ -24,7 +45,6 @@ public class ContactHelper extends HelperBase{
     public void selectContactById(int id) {
         wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
-
     public void selectGroupToAdd(GroupData groupName) {
         new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(groupName.getName());
     }
@@ -37,23 +57,8 @@ public class ContactHelper extends HelperBase{
         contactCache = null;
     }
 
-    public void fillContactData(ContactData contactData, boolean creation) {
-        type(By.name("firstname"), contactData.getName());
-        type(By.name("lastname"), contactData.getLastName());
-        type(By.name("company"), contactData.getCompany());
-        type(By.name("address"), contactData.getAddress());
-        type(By.name("home"), contactData.getHomephone());
-        type(By.name("mobile"), contactData.getMobilephone());
-        type(By.name("work"), contactData.getWorkphone());
-        type(By.name("email"), contactData.getEmail());
-        attach(By.name("photo"), contactData.getPhoto());
-
-        if (creation){
-           // new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
-           } else {
-            Assert.assertFalse(isElementPresentMy(By.name("new_group")));
-            }
-
+    public void groupFilter(GroupData group){
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());;
     }
 
     public void submit() {
@@ -102,6 +107,15 @@ public class ContactHelper extends HelperBase{
 
     public int count() {
         return wd.findElements(By.name("selected[]")).size();
+    }
+
+    public void removeContactFromGroup(ContactData contact) {
+        selectContactById(contact.getId());
+        removeContact();
+    }
+
+    private void removeContact() {
+        wd.findElement(By.name("remove")).click();
     }
 
     private Contacts contactCache = null;

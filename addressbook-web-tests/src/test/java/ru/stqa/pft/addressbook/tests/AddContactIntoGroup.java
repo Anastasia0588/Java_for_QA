@@ -1,7 +1,5 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.openqa.selenium.By;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
@@ -14,13 +12,30 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class AddContactIntoGroup extends TestBase{
 
+    @BeforeMethod
+    public void ensurePreconditions() {
+        app.goTo().homePage();
+        if (app.db().contacts().size() == 0) {
+            app.goTo().creation();
+            app.contact().create(new ContactData().withName("CreateNewContact")
+                            .withLastName("Ivanov")
+                            .withCompany("Intech")
+                            .withAddress("Moscow")
+                            .withMobilephone("79201111111")
+                            .withEmail("example@yandex.com")
+
+            );
+            app.goTo().homePage();
+        }
+    }
+
     @Test
     public void testAddContactIntoGroup(){
         Contacts before = app.db().contacts();
         app.goTo().groupPage();
         GroupData groupForAdd = new GroupData().withName("ForAddContact");
         app.group().create(groupForAdd);
-        int idGroup = groupForAdd.getId();
+        String nameGroup = groupForAdd.getName();
         app.goTo().homePage();
         ContactData addedContact = before.iterator().next();
         Groups beforeGroups = addedContact.getGroups();
@@ -31,9 +46,9 @@ public class AddContactIntoGroup extends TestBase{
         Groups afterGroups = afterContact.getGroups();
         assertThat(afterGroups, equalTo(beforeGroups.withAdded(groupForAdd)));
 
-        /*app.goTo().groupPage();
-        GroupData deletedGroup = selectGroupById(idGroup);
-        app.group().delete(deletedGroup);*/
+        app.goTo().groupPage();
+        GroupData deletedGroup = selectGroupByName(nameGroup);
+        app.group().delete(deletedGroup);
 
     }
 
@@ -42,8 +57,8 @@ public class AddContactIntoGroup extends TestBase{
         return contactsById.iterator().next().withId(id);
     }
 
-    private GroupData selectGroupById(int id) {
+    private GroupData selectGroupByName(String name) {
         Groups groupsById = app.db().groups();
-        return groupsById.iterator().next().withId(id);
+        return groupsById.iterator().next().withName(name);
     }
 }
