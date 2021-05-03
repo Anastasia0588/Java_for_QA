@@ -31,7 +31,8 @@ public class ContactPhoneTests extends TestBase{
                     .withMobilephone("111")
                     .withWorkphone("111")
                     .withEmail("example@yandex.com")
-                    .withGroup("Test1"));
+                   // .withGroup("Test1")
+            );
         }
         app.goTo().homePage();
     }

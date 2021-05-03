@@ -86,7 +86,8 @@ public class ContactDataGenerator {
            .withMobilephone(String.format("+7(111)000 00 0%s", i))
            .withAddress(String.format("gAdress %s", i))
            .withEmail(String.format("%semail@yandex.ru", i))
-                   .withGroup(String.format("test%s", i)));
+                  // .withGroup(String.format("test%s", i))
+           );
         }
         return contacts;
     }

@@ -26,7 +26,8 @@ public class ContactDeletionTests extends TestBase{
                     .withAddress("Moscow")
                     .withMobilephone("79201111111")
                     .withEmail("example@yandex.com")
-                    .withGroup("Test1"));
+             //       .withGroup("Test1")
+            );
             app.goTo().homePage();
         }
     }
