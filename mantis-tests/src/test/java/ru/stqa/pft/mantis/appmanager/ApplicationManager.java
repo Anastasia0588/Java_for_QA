@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+import ru.quest.mantis.appmanager.HttpSession;
+
 public class ApplicationManager {
     private final Properties properties;
     public WebDriver wd;
@@ -41,5 +43,13 @@ public class ApplicationManager {
     public void stop() {
         wd.findElement(By.linkText("Logout")).click();
         wd.quit();
+    }
+
+    public HttpSession newSession(){
+        return new HttpSession(this);
+    }
+
+    public String getProperty(String key) {
+        return properties.getProperty(key);
     }
 }
