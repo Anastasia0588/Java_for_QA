@@ -7,58 +7,74 @@ import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
+import java.util.Collection;
+import java.util.HashSet;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 public class AddContactIntoGroup extends TestBase{
 
     @BeforeMethod
-    public void ensurePreconditions() {
+    public void ensurePreconditions(){
+        if (app.db().groups().size() == 0){
+            app.goTo().groupPage();
+            app.group().create(new GroupData().withName("DeletedGroupName").withHeader("DeletedGroupHeader").withFooter("GroupForDeletionFooter"));
+        }
         app.goTo().homePage();
         if (app.db().contacts().size() == 0) {
             app.goTo().creation();
             app.contact().create(new ContactData().withName("CreateNewContact")
-                            .withLastName("Ivanov")
-                            .withCompany("Intech")
-                            .withAddress("Moscow")
-                            .withMobilephone("79201111111")
-                            .withEmail("example@yandex.com")
-
-            );
+                    .withLastName("Ivanov")
+                    .withCompany("Intech")
+                    .withAddress("Moscow")
+                    .withMobilephone("79201111111")
+                    .withEmail("example@yandex.com"));
             app.goTo().homePage();
         }
     }
 
     @Test
     public void testAddContactIntoGroup(){
-        Contacts before = app.db().contacts();
-        app.goTo().groupPage();
-        GroupData groupForAdd = new GroupData().withName("ForAddContact");
-        app.group().create(groupForAdd);
-        String nameGroup = groupForAdd.getName();
         app.goTo().homePage();
-        ContactData addedContact = before.iterator().next();
-        Groups beforeGroups = addedContact.getGroups();
-        int idContact = addedContact.getId();
-        app.contact().addInGroup(addedContact, groupForAdd);
-
-        ContactData afterContact = selectContactById(idContact);
-        Groups afterGroups = afterContact.getGroups();
-        assertThat(afterGroups, equalTo(beforeGroups.withAdded(groupForAdd)));
-
-        app.goTo().groupPage();
-        GroupData deletedGroup = selectGroupByName(nameGroup);
-        app.group().delete(deletedGroup);
-
+        ContactData addContact = selectContact();
+        GroupData groupForAdd = selectGroup(addContact);
+        Groups before = addContact.getGroups();
+        app.goTo().homePage();
+        app.contact().addInGroup(addContact, groupForAdd);
+        app.goTo().homePage();
+        ContactData addContactAfter = selectContactById(addContact);
+        Groups after = addContactAfter.getGroups();
+        assertThat(after, equalTo(before.withAdded(groupForAdd)));
     }
 
-    private ContactData selectContactById(int id) {
+    private ContactData selectContactById(ContactData addContact) {
         Contacts contactsById = app.db().contacts();
-        return contactsById.iterator().next().withId(id);
+        return contactsById.iterator().next().withId(addContact.getId());
+
     }
 
-    private GroupData selectGroupByName(String name) {
-        Groups groupsById = app.db().groups();
-        return groupsById.iterator().next().withName(name);
+    private GroupData selectGroup(ContactData contact) {
+        Groups allGroups = app.db().groups();
+        Groups contactsInGroups = contact.getGroups();
+        Collection<GroupData> contactGroups = new HashSet<>(contactsInGroups);
+        Collection<GroupData> avaliableGroups = new HashSet<>(allGroups);
+        avaliableGroups.removeAll(contactGroups);
+        return avaliableGroups.iterator().next();
+    }
+
+
+    private ContactData selectContact() {
+
+        Contacts allContacts = app.db().contacts();
+        Groups allGroups = app.db().groups();
+        for (ContactData contact : allContacts) {
+            if (contact.getGroups().size() < allGroups.size()) {
+                return contact;
+            }
+        }
+        app.goTo().groupPage();
+        app.group().create(new GroupData().withName("ForAddContact").withHeader("Header"));
+        return allContacts.iterator().next();
     }
 }

@@ -45,20 +45,23 @@ public class ContactHelper extends HelperBase{
     public void selectContactById(int id) {
         wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
+
+    /*
     public void selectGroupToAdd(GroupData groupName) {
         new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(groupName.getName());
+    }*/
+
+    public void selectGroup(int groupId) {
+        new Select(wd.findElement(By.name("to_group"))).selectByValue(String.valueOf(groupId));
     }
 
     public void addInGroup(ContactData contact, GroupData group) {
-        selectContactById(contact.getId());
-        selectGroupToAdd(group);
+        int id = contact.getId();
+        selectContactById(id);
+        selectGroup(group.getId());
         add();
         goToGoup();
         contactCache = null;
-    }
-
-    public void groupFilter(GroupData group){
-        new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());;
     }
 
     public void submit() {
@@ -79,7 +82,8 @@ public class ContactHelper extends HelperBase{
 
     public void add(){click(By.xpath("(//input[@name='add'])"));}
 
-    public void goToGoup(){wd.findElement(By.partialLinkText("group page")).click();}
+    public void goToGoup(){
+        wd.findElement(By.partialLinkText("group page")).click();}
 
     public void create(ContactData contact) {
         fillContactData(contact, true);
@@ -112,6 +116,8 @@ public class ContactHelper extends HelperBase{
     public void removeContactFromGroup(ContactData contact) {
         selectContactById(contact.getId());
         removeContact();
+        goToGoup();
+        contactCache = null;
     }
 
     private void removeContact() {
