@@ -115,13 +115,14 @@ public class ContactHelper extends HelperBase{
 
     public void removeContactFromGroup(ContactData contact) {
         selectContactById(contact.getId());
+
         removeContact();
         goToGoup();
         contactCache = null;
     }
 
     private void removeContact() {
-        wd.findElement(By.name("remove")).click();
+        wd.findElement(By.name("Remove")).click();
     }
 
     private Contacts contactCache = null;
