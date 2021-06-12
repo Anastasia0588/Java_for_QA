@@ -51,14 +51,18 @@ public class ContactHelper extends HelperBase{
         new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(groupName.getName());
     }*/
 
-    public void selectGroup(int groupId) {
+    public void selectGroupForRemove(int groupId) {
+        new Select(wd.findElement(By.name("group"))).selectByValue(String.valueOf(groupId));
+    }
+
+    public void selectGroupForAdd(int groupId) {
         new Select(wd.findElement(By.name("to_group"))).selectByValue(String.valueOf(groupId));
     }
 
     public void addInGroup(ContactData contact, GroupData group) {
         int id = contact.getId();
         selectContactById(id);
-        selectGroup(group.getId());
+        selectGroupForAdd(group.getId());
         add();
         goToGoup();
         contactCache = null;
@@ -115,14 +119,13 @@ public class ContactHelper extends HelperBase{
 
     public void removeContactFromGroup(ContactData contact) {
         selectContactById(contact.getId());
-
         removeContact();
         goToGoup();
         contactCache = null;
     }
 
     private void removeContact() {
-        wd.findElement(By.name("Remove")).click();
+        wd.findElement(By.name("remove")).click();
     }
 
     private Contacts contactCache = null;
