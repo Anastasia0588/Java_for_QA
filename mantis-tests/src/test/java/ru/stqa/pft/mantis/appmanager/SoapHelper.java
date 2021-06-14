@@ -3,7 +3,6 @@ package ru.stqa.pft.mantis.appmanager;
 import biz.futureware.mantis.rpc.soap.client.*;
 import ru.stqa.pft.mantis.model.Issue;
 import ru.stqa.pft.mantis.model.Project;
-import sun.security.x509.IssuingDistributionPointExtension;
 
 import javax.xml.rpc.ServiceException;
 import java.math.BigInteger;
@@ -51,5 +50,13 @@ public class SoapHelper {
                 .getMantisConnectPort(new URL("http://localhost/mantisbt-2.25.0/api/soap/mantisconnect.php"));
         return mc;
     }
+
+    public int getIssuesStatus(int issueId) throws MalformedURLException, ServiceException, RemoteException {
+        MantisConnectPortType mc = getMantisConnect();
+        IssueData issueData = mc.mc_issue_get("administrator", "root", BigInteger.valueOf(issueId));
+        int statusId = issueData.getStatus().getId().intValue();
+        return statusId;
+        }
 }
+
 
