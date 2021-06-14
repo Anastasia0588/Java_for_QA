@@ -19,13 +19,15 @@ public class DbHelper {
                 .configure() // configures settings from hibernate.cfg.xml
                 .build();
         sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
-
     }
 
-    public Users users(){
+    public Users users() {     // все пользователи, кроме администратора
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List<UserData> result = session.createQuery( "from GroupData").list();
+        List<UserData> result = session.createQuery( "from UserData where id > 1" ).list();
+        for (UserData user : result) {
+            System.out.println(user);
+        }
         session.getTransaction().commit();
         session.close();
         return new Users(result);

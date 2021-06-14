@@ -39,12 +39,6 @@ public class ApplicationManager {
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
     }
 
-    public void stop() {
-        if (wd != null) {
-            wd.quit();
-        }
-    }
-
     public HttpSession newSession() {
         return new HttpSession(this);
     }
@@ -93,6 +87,9 @@ public class ApplicationManager {
     }
 
     public DbHelper db() {
+        if (dbHelper == null) {
+            dbHelper = new DbHelper();
+        }
         return dbHelper;
     }
 
@@ -102,4 +99,11 @@ public class ApplicationManager {
         }
         return sessionHelper;
     }
+
+    public void stop() {
+        if (wd != null) {
+            wd.quit();
+        }
+    }
+
 }
