@@ -20,7 +20,7 @@ public class RestHelper {
     }
 
     public Set<Issue> getIssues() throws IOException {
-        String json = RestAssured.get(app.getProperty("bugifyUrl") + "/issues.json").asString();
+        String json = RestAssured.get(app.getProperty("bugifyurl") + "/issues.json").asString();
         JsonElement parsed = new JsonParser().parse(json);
         JsonElement issues = parsed.getAsJsonObject().get("issues");
         return new Gson().fromJson(issues, new TypeToken<Set<Issue>>(){}.getType() );
@@ -30,13 +30,13 @@ public class RestHelper {
         String json = RestAssured.given()
                 .parameter("subject", newIssue.getSubject())
                 .parameter("description", newIssue.getDescription())
-                .post(app.getProperty("bugifyUrl") + "/issues.json").asString();
+                .post(app.getProperty("bugifyurl") + "/issues.json").asString();
         JsonElement parsed = new JsonParser().parse(json);
         return parsed.getAsJsonObject().get("issue_id").getAsInt();
     }
 
     public String getIssuesStatus(int issueId) {
-        String json = RestAssured.get(app.getProperty("bugifyUrl") + "/issues/" + issueId +".json").asString();
+        String json = RestAssured.get(app.getProperty("bugifyurl") + "/issues/" + issueId +".json").asString();
         JsonElement parsed = new JsonParser().parse(json);
         return parsed.getAsJsonObject().get("state_name").getAsString();
     }
