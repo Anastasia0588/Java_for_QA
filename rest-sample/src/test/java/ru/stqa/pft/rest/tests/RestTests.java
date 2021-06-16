@@ -1,4 +1,4 @@
-package ru.stqa.pft.rest;
+package ru.stqa.pft.rest.tests;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -8,14 +8,14 @@ import org.apache.http.client.fluent.Executor;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.message.BasicNameValuePair;
 import org.testng.annotations.Test;
+import ru.stqa.pft.rest.model.Issue;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Set;
 
 import static org.testng.Assert.assertEquals;
 
-public class RestTests {
+public class RestTests extends TestBase{
     @Test
     public void testCreateIssue() throws IOException {
         Set<Issue> oldIssues = getIssues();
