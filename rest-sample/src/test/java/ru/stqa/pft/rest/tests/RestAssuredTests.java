@@ -1,9 +1,5 @@
 package ru.stqa.pft.rest.tests;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
 import com.jayway.restassured.RestAssured;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -13,9 +9,8 @@ import java.io.IOException;
 import java.util.Set;
 
 import static org.testng.Assert.assertEquals;
-import static ru.stqa.pft.rest.tests.TestBase.app;
 
-public class RestAssuredTests {
+public class RestAssuredTests extends TestBase{
 
     @BeforeClass
     public void init(){
