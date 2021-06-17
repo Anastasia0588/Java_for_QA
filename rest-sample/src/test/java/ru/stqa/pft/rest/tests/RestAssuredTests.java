@@ -26,5 +26,4 @@ public class RestAssuredTests extends TestBase{
         oldIssues.add(newIssue.withId(issueId));
         assertEquals(newIssues, oldIssues);
     }
-
 }

@@ -38,6 +38,11 @@ public class RestHelper {
     public String getIssuesStatus(int issueId) {
         String json = RestAssured.get(app.getProperty("bugifyurl") + "/issues/" + issueId +".json").asString();
         JsonElement parsed = new JsonParser().parse(json);
-        return parsed.getAsJsonObject().get("state_name").getAsString();
+        return parsed.getAsJsonObject()
+                .getAsJsonArray("issues")
+                .get(0)
+                .getAsJsonObject()
+                .get("state_name")
+                .getAsString();
     }
 }
