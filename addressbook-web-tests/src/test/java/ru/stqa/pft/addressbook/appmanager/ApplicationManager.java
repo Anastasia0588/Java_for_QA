@@ -50,7 +50,7 @@ public class ApplicationManager {
         } else {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setBrowserName(browser);
-            //capabilities.setPlatform(Platform.fromString(System.getProperty("platform" )));
+            capabilities.setPlatform(Platform.fromString(System.getProperty("platform" )));
             wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
         }
         wd.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
